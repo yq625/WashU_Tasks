@@ -6,34 +6,23 @@ This repository contains scripts for analyzing the coverage depth of a BAM file 
 ## Prerequisites
 To run these scripts, `bedtools` should be installed on your system. You can find installation instructions for `bedtools` [here](https://bedtools.readthedocs.io/en/latest/content/installation.html).
 
-## Structure of the Repository
-The `Task1` directory contains both the scripts and the data files:
-- `calculate_mean_coverage.sh`: Script to calculate the mean coverage over specified regions.
-- `calculate_coverage_10x_20x.sh`: Script to calculate the percentage of regions covered at 10X and 20X.
-- `task1.bam`: BAM file containing sequencing data.
-- `task1.bai`: BAI file, the index of the BAM file.
-- `task1.chr22.bed`: BED file specifying regions of interest.
+## Usage
 
-The results of the analysis will be stored in the `output` subdirectory within `Task1`.
+1. Place your BAM file (e.g., `task1.bam`), BAI file (e.g., `task1.bai`), and BED file (e.g., `task1.chr22.bed`) in the same directory as this script (`calculate_coverage.sh`).
 
-## Usage Instructions
-1. Navigate to the `Task1` directory.
-2. Ensure that your BAM file (`task1.bam`), BAI file (`task1.bai`), and BED file (`task1.chr22.bed`) are placed in this directory.
-3. Make the shell scripts executable using the following commands:
+2. Execute the script using the following command:
+
    ```bash
-   chmod +x calculate_mean_coverage.sh
-   chmod +x calculate_coverage_10x_20x.sh
-4. Run the scripts using the following commands:
-   ```bash
-   ./calculate_mean_coverage.sh
-   ./calculate_coverage_10x_20x.sh
+   ./calculate_coverage.sh
 ## Output
-Upon running the analysis scripts, the following output files will be generated in the `output` directory within the `Task1` folder:
+Upon running the analysis scripts, the following output file will be generated in the `output` directory within the `Task1` folder:
+- `coverage_summary.txt`: Contains the mean coverage and percentage coverage at 10X and 20X.
+- `coverage.bedgraph`: BEDGraph file with coverage information.
+- `modified_task1.chr22.bed`: Modified BED file.
+- `coverage_intersect.bedgraph`: Intersection of coverage with modified BED regions.
+- `coverage_10x.txt`: Coverage at 10X.
+- `coverage_20x.txt`: Coverage at 20X.
+- `percentage_10x.txt`: Percentage coverage at 10X.
+- `percentage_20x.txt`: Percentage coverage at 20X.
 
-- `mean_coverage.txt`: This file contains the mean coverage across the specified genomic regions in the BED file. It provides an average coverage depth for the regions of interest.
-
-- `percentage_10x.txt`: This file contains the percentage of genomic regions covered at a minimum depth of 10X. It helps assess the coverage at a specific threshold.
-
-- `percentage_20x.txt`: Similar to the `percentage_10x.txt` file, this one contains the percentage of genomic regions covered at a minimum depth of 20X.
-
-You can access and analyze these output files to gain insights into the coverage of your BAM file within the specified regions of interest.
+You can access these files to review the calculated coverage and percentages.
