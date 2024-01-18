@@ -1,0 +1,3 @@
+Task 4. Two sets of plink bfiles are provided, which contain genetic information on different individuals.
+Merge the two files, so that all of the individuals are in a single set of files.
+Variants present in both input datasets should be merged into single variant records in the output file.
