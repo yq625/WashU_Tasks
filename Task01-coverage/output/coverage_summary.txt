@@ -1,0 +1,3 @@
+Mean Coverage: Mean Coverage: 16.8868
+Percentage Coverage at 10X: Percentage Coverage at 10X: 42.00%
+Percentage Coverage at 20X: Percentage Coverage at 20X: 22.00%
