@@ -1,0 +1,2 @@
+Task 3. The file task3.vcf.gz contains genotype information for 5 individuals. 
+Perform an IBD analysis, and construct a pedigree showing how these individuals are related.
