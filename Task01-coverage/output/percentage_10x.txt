@@ -1,1 +1,0 @@
-Percentage Coverage at 10X: 42.00
