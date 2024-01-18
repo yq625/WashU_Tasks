@@ -1,0 +1,1 @@
+Percentage Coverage at 20X: 22.00

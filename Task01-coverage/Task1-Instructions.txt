@@ -1,0 +1,2 @@
+Task1 - The provided file task1.chr22.bed contains several regions of interest.
+Calculate the mean coverage of task1.bam in these regions. Also calculate the percentage of these regions covered at 10X, and at 20X
