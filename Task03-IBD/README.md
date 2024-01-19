@@ -8,6 +8,7 @@ This repository contains the scripts and results for the IBD (Identity By Descen
 - `plot_pedigree.py`: A Python script to visualize the results of the IBD analysis.
 - `pedigree_chart_full.png`: The output visual representation of the IBD analysis.
 - `task3_ibd.genome`: The output file from PLINK with IBD analysis results.
+- `IBD analysis result.docx`: Summary docx file containing IBD analysis explanation and pedgree.
 
 ## How to Run
 
