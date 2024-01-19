@@ -1,0 +1,28 @@
+PLINK v1.90b7.2 64-bit (11 Dec 2023)
+Options in effect:
+  --bfile task3
+  --genome
+  --out task3_ibd
+
+Hostname: Yuns-Air
+Working directory: /Users/yunqin/Downloads/Task03-IBD
+Start time: Fri Jan 19 17:10:19 2024
+
+Random number seed: 1705702219
+8192 MB RAM detected; reserving 4096 MB for main workspace.
+12544 variants loaded from .bim file.
+5 people (0 males, 0 females, 5 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to task3_ibd.nosex .
+Using up to 8 threads (change this with --threads).
+Before main variant filters, 5 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Warning: Nonmissing nonmale Y chromosome genotype(s) present; many commands
+treat these as missing.
+Total genotyping rate is 0.953201.
+12544 variants and 5 people pass filters and QC.
+Note: No phenotypes present.
+Excluding 193 variants on non-autosomes from IBD calculation.
+IBD calculations complete.
+Finished writing task3_ibd.genome .
+
+End time: Fri Jan 19 17:10:19 2024
