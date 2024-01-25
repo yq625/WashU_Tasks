@@ -2,10 +2,12 @@
 
 ## Overview
 This README outlines the specific steps for generating a joint VCF file from the Whole Exome Sequencing data of three samples. The process includes downloading the necessary reference files, processing BAM files, and performing variant calling using GATK v4.
-
-## Prerequisites
-- GATK v4 installed in your Conda environment.
-- GRCh37/hg19 reference genome (used in Task 06).
+### Required Input and Folder Structure
+- **Reference Genome**: A FASTA file of the GRCh37/hg19 reference genome. 
+- **dbSNP File**: A VCF file containing dbSNP variant annotations compatible with GRCh37/hg19.
+- **Sample BAM Files**: Sorted and indexed BAM files for each of the three samples, ideally located in their respective directories (Sample1, Sample2, Sample3).
+- **Scripts**: Ensure `process_bam.sh` and `variant_calling.sh` scripts are present in the working directory.
+- **Conda Environment**: A Conda environment with GATK v4 installed and activated.
 
 ## Step-by-Step Pipeline
 
@@ -46,3 +48,10 @@ Filter and refine the VCF file:
 gatk VariantFiltration -R $REF_GENOME -V output.vcf.gz -O final_output.vcf.gz
 ```
 
+## Final Output
+
+The pipeline's end product is a joint VCF file (`final_joint_output.vcf.gz`), which contains the consolidated variant calls from all three samples. This file is suitable for downstream genomic analyses and interpretations.
+
+## Conclusion
+
+Following this pipeline, you will obtain a comprehensive view of the genetic variants present across the three exome-sequenced samples, facilitating further genomic studies and insights.
