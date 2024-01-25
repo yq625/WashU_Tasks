@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Path to reference genome and dbSNP VCF
-REF_GENOME="path/to/hg19.fa"
-DBSNP="path/to/00-All.vcf.gz"
+REF_GENOME="hg19.fa"
+DBSNP="00-All.vcf.gz"
 
 # Loop through each sample directory
 for SAMPLE_DIR in Sample1 Sample2 Sample3
