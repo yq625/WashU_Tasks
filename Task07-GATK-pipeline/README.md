@@ -20,9 +20,10 @@ samtools faidx hg19.fa
 picard CreateSequenceDictionary R=hg19.fa O=hg19.dict
 ```
 
-### Step 2: Download dbSNP File
+### Step 2: Download dbSNP File and Index it
 ```bash
 wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b151_GRCh37p13/VCF/00-All.vcf.gz
+gatk IndexFeatureFile -I /Users/yunqin/Downloads/WashU_Tasks/Task07-GATK-pipeline/00-All.vcf.gz
 ```
 This file contains known variant annotations, which are essential for base quality score recalibration.
 
