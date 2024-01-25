@@ -13,10 +13,11 @@ This README outlines the specific steps for generating a joint VCF file from the
 
 ### Step 1: Prepare the Reference Genome
 
-Before starting the variant calling, index the reference genome using SAMtools:
+Before starting the variant calling, index the reference genome using SAMtools and create reference genome dict file:
 
 ```bash
 samtools faidx hg19.fa
+picard CreateSequenceDictionary R=hg19.fa O=hg19.dict
 ```
 
 ### Step 2: Download dbSNP File
