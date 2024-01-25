@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to reference genome
-REF_GENOME="path/to/hg19.fa"
+REF_GENOME="hg19.fa"
 
 # Loop through each sample directory
 for SAMPLE_DIR in Sample1 Sample2 Sample3
