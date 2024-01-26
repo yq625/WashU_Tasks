@@ -4,27 +4,18 @@
 
 This repository documents the workflow for aligning Whole Exome Sequencing data from three samples (Sample1, Sample2, and Sample3) to the human reference genome (GRCh37/hg19). The process involves downloading the reference genome, indexing it, and then aligning the sequencing data using the BWA (Burrows-Wheeler Aligner) tool.
 
-## Downloading the Reference Genome
+## Prepare the Reference Genome and Index it
 
-The GRCh37 reference genome was downloaded using `wget`. This version of the human genome is widely used for genomic studies.
+The GRCh37 reference genome was given by the task `human_g1k_v37_decoy.fasta.gz`. Before alignment, the reference genome needs to be indexed using BWA.
 
-### Steps:
-
-1. **Download the Reference Genome**:
+1.**To decompress the genome file**:
    ```bash
-   wget ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.gz
+   gunzip human_g1k_v37_decoy.fasta.gz
    ```
-2. **Decompress the Genome File**:
+2.**Indexing the Reference Genome**:
    ```bash
-   gunzip hg19.fa.gz
+   bwa index human_g1k_v37_decoy.fasta
    ```
-
-## Indexing the Reference Genome
-Before alignment, the reference genome needs to be indexed using BWA.
-### Command:
-```bash
-bwa index hg19.fa
-```
 
 ## Aligning the Sequencing Data
 
