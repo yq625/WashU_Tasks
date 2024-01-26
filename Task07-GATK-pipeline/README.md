@@ -1,70 +1,44 @@
-# Task 07: Variant Calling Pipeline for Whole Exome Sequencing
+# Task 07: GATK Variant Calling Pipeline
 
 ## Overview
-This README outlines the specific steps for generating a joint VCF file from the Whole Exome Sequencing data of three samples. The process includes downloading the necessary reference files, processing BAM files, and performing variant calling using GATK v4.
-### Required Input and Folder Structure
-- **Reference Genome**: A FASTA file of the GRCh37/hg19 reference genome. 
-- **dbSNP File**: A VCF file containing dbSNP variant annotations compatible with GRCh37/hg19.
-- **Sample BAM Files**: Sorted and indexed BAM files for each of the three samples, ideally located in their respective directories (Sample1, Sample2, Sample3).
-- **Scripts**: Ensure `process_bam.sh` and `variant_calling.sh` scripts are present in the working directory.
-- **Conda Environment**: A Conda environment with GATK v4 installed and activated.
+Task 07 involves processing genomic data through the GATK pipeline to perform variant calling. This task uses the hg19/b37 human reference genome and involves steps from initial variant calling to Variant Quality Score Recalibration (VQSR).
+
+## Files and Directories
+- `Sample1`, `Sample2`, `Sample3`: Directories containing aligned and sorted BAM files for each sample.
+- VCF files for VQSR (`dbsnp_138.b37.vcf.gz`, `hapmap_3.3.b37.vcf.gz`, etc.).
+- Reference genome files (`human_g1k_v37_decoy.fasta` and related index files).
+
+## Pipeline Steps
+1. **HaplotypeCaller**: Generates GVCFs for each sample.
+2. **CombineGVCFs**: Combines individual GVCFs into a single GVCF.
+3. **GenotypeGVCFs**: Performs joint genotyping to produce a raw VCF file.
+4. **VariantRecalibrator and ApplyVQSR**: Applies VQSR using multiple resources like dbSNP, HapMap, and the 1000 Genomes Project.
 
 ## Step-by-Step Pipeline
 
-### Step 1: Prepare the Reference Genome
-
-Before starting the variant calling, index the reference genome using SAMtools and create reference genome dict file with picard:
+### Step 1: Prepare the Reference Genome and VCF Files
+Save reference genome and related index files given by the Task. Unzip them. Download vcf files:
 
 ```bash
-samtools faidx hg19.fa
-picard CreateSequenceDictionary R=hg19.fa O=hg19.dict
+wget -c ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/dbsnp_138.b37.vcf.gz
+wget -c ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_phase1.indels.b37.vcf.gz
+wget -c ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/hapmap_3.3.b37.vcf.gz
+wget -c ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/1000G_omni2.5.b37.vcf.gz
 ```
 
-### Step 2: Download dbSNP file and take a look at the column so a vcf format can be created manually:
+### Step 2: Run Pipeline with `call_variant.sh`:
+
 ```bash
-wget ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/snp151.txt.gz
-gzcat snp151.txt.gz | head
-```
-After checking the downloaded `.txt` file, the following command line was used to manually build a vcf file:
-```bash
-gunzip -c snp151.txt.gz | awk 'BEGIN {OFS="\t"} {print "chr"$2, $3, ".", $4, $7, ".", ".", ".", "GT"}' > snp151.vcf
+chmod +x call_variant.sh
+./call_variant.sh
 ```
 
-### Step 3: Process BAM Files
-A script named `process_bam.sh` is used to mark duplicates and perform base quality score recalibration on each sample's BAM file.
-
-To execute the script:
-```bash
-chmod +x process_bam.sh
-./process_bam.sh
-```
-
-### Step 4: Variant Calling
-Use the `variant_calling.sh` script to call variants on each sample's recalibrated BAM file using GATK's HaplotypeCaller.
-
-To execute the script:
-```bash
-chmod +x variant_calling.sh
-./variant_calling.sh
-```
-
-### Step 5: Joint Genotyping
-After generating GVCFs for each sample, perform joint genotyping:
-```bash
-gatk CombineGVCFs -R $REF_GENOME --variant Sample1/Sample1.g.vcf.gz --variant Sample2/Sample2.g.vcf.gz --variant Sample3/Sample3.g.vcf.gz -O combined.g.vcf.gz
-gatk GenotypeGVCFs -R $REF_GENOME --variant combined.g.vcf.gz -O output.vcf.gz
-```
-
-### Step 6: Post-Processing of VCF
-Filter and refine the VCF file:
-```bash
-gatk VariantFiltration -R $REF_GENOME -V output.vcf.gz -O final_output.vcf.gz
-```
 
 ## Final Output
 
-The pipeline's end product is a joint VCF file (`final_joint_output.vcf.gz`), which contains the consolidated variant calls from all three samples. This file is suitable for downstream genomic analyses and interpretations.
+The pipeline's end product is a joint VCF file (`joint.vcf.gz`), which contains the consolidated variant calls from all three samples. This file is suitable for downstream genomic analyses and interpretations.
 
-## Conclusion
-
-Following this pipeline, you will obtain a comprehensive view of the genetic variants present across the three exome-sequenced samples, facilitating further genomic studies and insights.
+## Additional Information
+- The script assumes the presence of necessary VCF files for VQSR in the working directory.
+- For detailed information on GATK and variant calling, visit the [GATK website](https://gatk.broadinstitute.org/).
+  
