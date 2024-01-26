@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to the reference genome
-REF_GENOME="hg19.fa"
+REF_GENOME="human_g1k_v37_decoy.fasta"
 
 # Loop through each sample directory
 for SAMPLE_DIR in Sample1 Sample2 Sample3
