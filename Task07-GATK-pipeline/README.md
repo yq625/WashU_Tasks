@@ -13,19 +13,22 @@ This README outlines the specific steps for generating a joint VCF file from the
 
 ### Step 1: Prepare the Reference Genome
 
-Before starting the variant calling, index the reference genome using SAMtools and create reference genome dict file:
+Before starting the variant calling, index the reference genome using SAMtools and create reference genome dict file with picard:
 
 ```bash
 samtools faidx hg19.fa
 picard CreateSequenceDictionary R=hg19.fa O=hg19.dict
 ```
 
-### Step 2: Download dbSNP File and Index it
+### Step 2: Download dbSNP file and take a look at the column so a vcf format can be created manually:
 ```bash
-wget ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b151_GRCh37p13/VCF/00-All.vcf.gz
-gatk IndexFeatureFile -I /Users/yunqin/Downloads/WashU_Tasks/Task07-GATK-pipeline/00-All.vcf.gz
+wget ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/snp151.txt.gz
+gzcat snp151.txt.gz | head
 ```
-This file contains known variant annotations, which are essential for base quality score recalibration.
+After checking the downloaded `.txt` file, the following command line was used to manually build a vcf file:
+```bash
+gunzip -c snp151.txt.gz | awk 'BEGIN {OFS="\t"} {print "chr"$2, $3, ".", $4, $7, ".", ".", ".", "GT"}' > snp151.vcf
+```
 
 ### Step 3: Process BAM Files
 A script named `process_bam.sh` is used to mark duplicates and perform base quality score recalibration on each sample's BAM file.
